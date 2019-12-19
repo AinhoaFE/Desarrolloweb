@@ -1,0 +1,49 @@
+<html>
+<head>
+<title>Ejemplo1</title>
+<script type="text/javascript">
+//Creamos el objeto XMLHttpRequest mediante una función:
+function creaObjetoAjax () { 
+         var obj; //variable que recogerá el objeto
+         if (window.XMLHttpRequest) { //código para mayoría de navegadores
+            obj=new XMLHttpRequest();
+            }
+         else { //para IE 5 y IE 6
+            obj=new ActiveXObject(Microsoft.XMLHTTP);
+            }
+         return obj; //devolvemos objeto
+         }
+docTxt=creaObjetoAjax(); //llamar a funcion crear objeto.
+docTxt.open("GET","ejemplo1.txt",true); //preparar petición del objeto
+docTxt.onreadystatechange=leerArchivo; //indicar dónde recoger la respuesta
+docTxt.send() //enviar petición
+//función que recoge la respuesta para poder utilizarla
+function leerArchivo() {  
+         if (docTxt.readyState == 4) { //Comprobar carga página
+            if (docTxt.status == 200) { //Comprobar URL
+               var texto=docTxt.responseText; //Recoger texto
+               }
+            }
+         }
+//función para botón "Ver texto"
+function verTexto() {
+         ver=document.getElementById("respuesta");
+         ver.innerHTML=texto;
+         }
+//función para botón "Ocultar texto"			 
+function ocultarTexto() {
+         nover=document.getElementById("respuesta");
+         nover.innerHTML="";
+         }
+</script>
+</head>
+<body>
+<h1>Ver archivo con ajax</h1>
+<form action="#">
+<p><input type="button" value="Ver texto" onclick="verTexto()" />
+   <input type="button" value="Ocultar texto" onclick="ocultarTexto()" />  
+</p>
+</form>
+<div id="respuesta"></div>
+</body>
+</html>

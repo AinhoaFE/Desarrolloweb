@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <!--[if lt IE 8 ]><html class="no-js ie ie7" lang="en"> <![endif]-->
 <!--[if IE 8 ]><html class="no-js ie ie8" lang="en"> <![endif]-->
@@ -7,7 +11,7 @@
    <!--- Basic Page Needs
    ================================================== -->
    <meta charset="utf-8">
-	<title>Contact Page | Sparrow</title>
+	<title>Página Contacto| Akarayoga</title>
 	<meta name="description" content="">
 	<meta name="author" content="">
 
@@ -24,8 +28,7 @@
    <!-- Script
    ================================================== -->
 	<script src="js/modernizr.js"></script>
-	<script src="js/validarFormulario.js"></script>
-	
+	<!--<script src="js/valida.js"></script>-->
 	
 
    <!-- Favicons
@@ -66,6 +69,7 @@
                   <li><a href="contact.html">CONTACTO</a></li>
                   <!--<li><a href="styles.html">Features</a></li>-->
 				   <li><span><a href="blog.html">BLOG</a></span>
+				   
                  
                   </li>
 
@@ -109,36 +113,40 @@
               <p class="lead"> Resuelve tu duda, contactando con nosotros o dejanos un mensaje y contestaremos lo antes posible </p>
 
               <div id="contact-form">
-
-                  <!-- form -->
-				  <form name="contactForm" id="contactForm" onsubmit="return validarFormulario(this)"
-action="procesaFormulario.php">
+                  <!-- El formulario envia a validar.php mediantes post-->
+				  <form name="contactForm" action="validar.php" id="contactForm" method="post">
                  <!-- <form name="contactForm" id="contactForm" method="post" action="">-->
       					<fieldset>
 
                         <div class="half">
       						   <label for="contactName">Nombre <span class="required">*</span></label>
-      						   <input name="contactName" type="text" id="contactName" size="35" value="" />
+      						     <div class="alert alert-danger">
+								 <input name="contactName" type="text" id="nombre" size="35" value="" />
+							  </div>
+							   
+
                         </div>
 
                         <div class="half pull-right">
       						   <label for="contactEmail">Email <span class="required">*</span></label>
-      						   <input name="contactEmail" type="text" id="contactEmail" size="35" value="" />
+      						   <input name="contactEmail" type="text" id="mail" size="35" value="" />
                         </div>
 
                         <div>
       						   <label for="contactSubject">Asunto</label>
-      						   <input name="contactSubject" type="text" id="contactSubject" size="35" value="" />
+      						   <input name="contactSubject" type="text" id="tema" size="35" value="" />
                         </div>
 
                         <div>
                            <label  for="contactMessage">Mensaje <span class="required">*</span></label>
-                           <textarea name="contactMessage"  id="contactMessage" rows="15" cols="50" ></textarea>
+                           <textarea name="contactMessage"  id="mensaje" rows="15" cols="50" ></textarea>
                         </div>
 
                         <div>
                           <!-- <button class="submit">Submit</button>-->
-						   <input name="Submit" value="Enviar" type="submit" >
+						   <input name="Submit" value="Enviar" type="submit" id="submit"/>
+						   <div  id="div"></div>
+						   <div  id="div2"></div>
                            <span id="image-loader">
                               <img src="images/loader.gif" alt="" />
                            </span>
@@ -260,7 +268,8 @@ action="procesaFormulario.php">
    </section> <!-- Tweet Section End-->
 
    <!-- footer
-   ================================================== -->
+   ================================================== 
+   -->
    <footer>
 
       <div class="row">
@@ -286,8 +295,7 @@ action="procesaFormulario.php">
             </ul>
 
             <ul class="copyright">
-               <li>Copyright &copy; 2014 Sparrow</li> 
-               <li>Design by <a href="http://www.styleshout.com/">Styleshout</a></li>               
+               <li><a href="acceso.html">Acceso</a></li>
             </ul>
 
          </div>

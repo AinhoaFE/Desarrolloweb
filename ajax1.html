@@ -1,0 +1,48 @@
+<html>
+<head>
+<title>Ejemplo 3</title>
+
+<script type="text/javascript">
+var xhr;
+ if (window.XMLHttpRequest) {
+ xhr = new XMLHttpRequest();
+ } else if (window.ActiveXObject) {
+ xhr = new ActiveXObject("Microsoft.XMLHTTP");
+ }
+ xhr.onreadystatechange = function()
+ {if(xhr.readyState == 4)
+ {
+ if(xhr.status == 200)
+ document.ajax.dyn="Recibido:" + xhr.responseText;
+ else
+ document.ajax.dyn="Código de error " + xhr.status;
+ }
+ };
+function verarchivo1() { //función para ver archivo 1
+ 
+	pagina=new ObjetoAjax(); //instanciamos el objeto
+	
+    pagina.pedirTexto("ejemplo1.txt","cont1") //metodo para visualizar archivo
+    }
+function ocultararchivo1(){ //volver al estado inicial
+    document.getElementById("cont1").innerHTML="Archivo 1 oculto";
+    }		
+function verarchivo2() { //función para ver archivo 2
+    var pagina = new ObjetoAjax(); 
+    pagina.pedirTexto("ejemplo1.txt","cont2") 
+    }
+function ocultararchivo2(){
+    document.getElementById("cont2").innerHTML="Archivo 2 oculto";
+    }	
+</script>
+</head>
+<body>
+<h1>Crear y utilizar objetoAjax para cargar archivos</h1>
+<h3><input type="button" onclick="verarchivo1()" value="Ver Archivo 1">
+    <input type="button" onclick="ocultararchivo1()" value="Ocultar Archivo 1"></h3>
+<h3><input type="button" onclick="verarchivo2()" value="Ver Archivo 2">
+    <input type="button" onclick="ocultararchivo2()" value="Ocultar Archivo 2"></h3>
+<p id="cont1">Archivo 1 oculto</p>
+<p id="cont2">Archivo 2 oculto</p>
+</body>
+</html>
