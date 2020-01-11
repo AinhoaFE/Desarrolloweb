@@ -1,227 +1,257 @@
+<?php
+//Inicializamos las variables de sesión
+session_start();
+
+//Seteamos el indice autorizado con el valor falso (solo permitiremos el acceso si inserta usuario y contraseña)
+$_SESSION['autorizado'] = false;
+
+//Inicializamos las variables a 0
+$mensaje="";
+$email="";
+
+//Nos ayudamos de un if para saber si el email y la contrasena tienen valores
+if(isset($_POST['email']) && isset($_POST['contrasena'])) {
+
+
+//Hacemos. las validaciones en PHP, Pues anteriormente hemos usado javascript
+if ($_POST['email']==""){
+    $mensaje.="- Por favor, ingrese su email <br>";
+
+  } else if ($_POST['contrasena']=="") {
+    $mensaje.="- Por favor, ingrese su contraseña <br>";
+
+  }else {
+    
+    $email = strip_tags($_POST['email']);
+    $contrasena =sha1(strip_tags($_POST['contrasena']));
+    
+    //Asignamos a mysqli la variable de conexion
+    $mysqli = mysqli_connect("localhost", "root", "", "Akarayoga");
+    
+
+    if ($mysqli==false){
+      
+      echo "Error al conectar con la base de datos";
+      die();
+    }
+
+    $resultado = $mysqli->query("SELECT * FROM `usuarios` WHERE `email` = '".$email."' AND  `contrasena` = '".$contrasena."' ");
+    $usuarios = $resultado->fetch_all(MYSQLI_ASSOC);
+
+    //Compruebo la info de los datos que me trae
+    //echo "<pre>";
+    //print_r($usuarios);
+    //die();
+
+    
+    //cuento cuantos elementos tiene $tabla,
+    $cantidad = count($usuarios);
+
+
+    if ($cantidad == 1){
+    
+    //cargo datos del usuario en variables de sesión
+    
+    $_SESSION['idUsuario'] = $usuarios[0]['idUsuario'];
+    $_SESSION['nombre'] = $usuarios[0]['nombre'];
+    $_SESSION['apellidos'] = $usuarios[0]['apellidos'];
+    $_SESSION['email'] = $usuarios[0]['email'];
+    $_SESSION['telefono'] = $usuarios[0]['telefono'];
+    $_SESSION['fechaRegistro'] = $usuarios[0]['fechaRegistro'];
+    $_SESSION['fechaUltimoAcceso'] = $usuarios[0]['fechaUltimoAcceso'];
+    $_SESSION['fechaNacimiento'] = $usuarios[0]['fechaNacimiento'];
+    $_SESSION['ipUsuario'] = $usuarios[0]['ipUsuario'];
+
+
+
+      
+      $_SESSION['autorizado'] = true;
+      
+      //Definimos la variable hoy para actualizar el campo ultimo acceso conforme al formato de timestamp de la base de datos:
+      $fechaActual = date("Y-m-d H:i:s");
+      
+      //Creamos la consulta SQL que actualizará la fecha del último acceso
+      $resultado = $mysqli->query("UPDATE `usuarios` SET `fechaUltimoAcceso`= '".$fechaActual."' WHERE `email` = '".$email."' ");
+      
+      $mensaje .= "Acceso concedido";
+      //Redirigimos a la principal
+      echo '<meta http-equiv="refresh" content="2; url=index.php">';
+      
+    }else{
+  
+    //Si no coinciden las contraseñas entonces imprimimos mensaje de denegado y establecemos la variable en false
+      $mensaje .= "Acceso denegado";
+      $_SESSION['autorizado'] = false;
+    }
+  }
+}
+
+?>
+
 
 
 <!DOCTYPE html>
-<!--[if lt IE 8 ]><html class="no-js ie ie7" lang="en"> <![endif]-->
-<!--[if IE 8 ]><html class="no-js ie ie8" lang="en"> <![endif]-->
-<!--[if (gte IE 8)|!(IE)]><!--><html class="no-js" lang="en"> <!--<![endif]-->
+<html lang="es">
+
 <head>
 
-   <!--- Basic Page Needs
-   ================================================== -->
-   <meta charset="utf-8">
-	<title>Login | Akarayoga</title>
-	<meta name="description" content="">
-	<meta name="author" content="">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-   <!-- Mobile Specific Metas
-   ================================================== -->
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Akarayoga</title>
 
-	<!-- CSS
-    ================================================== -->
-   <link rel="stylesheet" href="css/default.css">
-	<link rel="stylesheet" href="css/layout.css">
-   <link rel="stylesheet" href="css/media-queries.css">
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/estilos.css" rel="stylesheet">
 
-   <!-- Script
-   ================================================== -->
-	<script src="js/modernizr.js"></script>
-	<!--<script src="js/valida.js"></script>-->
-	
 
-   <!-- Favicons
-	================================================== -->
-	<link rel="shortcut icon" href="favicon.ico" >
+
+
+    <!-- Custom styles for this template -->
+    <link href="css/modern-business.css" rel="stylesheet">
+
+
+
+    <!-- Agregamos fuentes -->
+    <link href="https://fonts.googleapis.com/css?family=Lato:900|Merriweather&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Signika&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Amatic+SC:400,700|Oswald:500&display=swap" rel="stylesheet">
+
+    <!-- Agregamos icono del navegador -->
+    <link rel="shortcut icon" href="./fotos/icono.png" />
 
 </head>
 
-<body>
+<body class="body-login-personalizado">
 
-   <!-- Header
-   ================================================== -->
-   <header>
-  <div class="row">
+    <!-- Navigation -->
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.php"> <span><img src="fotos/icono.png"width="35" height="30"></span> Akarayoga</a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
 
-         <div class="twelve columns">
+                    <li class="nav-item ">
+                        <a class="nav-link letra" href="index.php">Inicio</a>
+                    </li>
 
-            <div class="logo">
-               <a href="index.html"><img alt="" src="images/Akarayoga_LOGO.png" width="50" height="50"></a>
+                    <li class="nav-item">
+                        <a class="nav-link letra" href="about.php">Akara</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link letra" href="services.php">Clases</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link letra" href="contact.php">Contacto</a>
+                    </li>
+
+                <!-- Vamos a crear aqui una función para que me cambie el contenido del texto 
+                por el nombre del usuario o bien por login y ademas personalizaremos el vinculo para llevarlo a la pagina principal
+                o por el contrario a la pagina de login -->
+
+                                        
+                        <li class="nav-item">
+                        <a class="nav-link letra active" href="login.php">Login</a>
+                    </li>
+
+
+                </ul>
             </div>
+        </div>
+    </nav>
 
-            <nav id="nav-wrap">
-
-               <a class="mobile-btn" href="#nav-wrap" title="Show navigation">Show navigation</a>
-	            <a class="mobile-btn" href="#" title="Hide navigation">Hide navigation</a>
-
-               <ul id="nav" class="nav">
-
-	               <li class="current"><a href="index.html">HOME</a></li>
-	              
-                  <li><span><a href="clases.html">YOGA</a></span>
-                     <ul>
-                        <li><a href="clases.html">CLASES DE YOGA</a></li>
-                        <li><a href="work.html">YOG@WORK</a></li>
-                     </ul>
-                  </li>
-	               <li><a href="about.html">SOBRE AKARA</a></li>
-                  <li><a href="contact.html">CONTACTO</a></li>
-                  <!--<li><a href="styles.html">Features</a></li>-->
-				   <li><span><a href="blog.html">BLOG</a></span>
-				   
-                 
-                  </li>
-
-               </ul> <!-- end #nav -->
-
-            </nav> <!-- end #nav-wrap -->
-
-         </div>
-
-      </div>
-
-
-   </header> <!-- Header End -->
-
-   
-   <!-- Content
-   ================================================== -->
-   <div class="content-outer">
-
-      <div id="page-content" class="row page">
-
-         <div id="primary" class="eight columns">
-
-            <section>
-
-   <?php
-
-//Requiere acceso a la bbdd
-require 'acceso.php';
-
-session_start();
-
-$usuario = $_POST['usuario'];
-$contraseña = $_POST['contraseña'];
-
-//Muestra los usuarios 
-
-$q = "SELECT COUNT(*) as contar FROM usuarios WHERE usuario='".$usuario."' and contraseña ='".$contraseña."'";
-$consulta = mysqli_query($con,$q);
-$array = mysqli_fetch_array($consulta,MYSQLI_ASSOC);
-
-//Acceso a la sesión del usuario
-if($array['contar']>0)
-{
-$_SESSION['username'] = $usuario;
-header("Location: paginaprincipal.php");
-}
-else{
-
-echo "<h1>Acceso incorrecto</h1>";
-
-echo "<h1>Introduce de nuevo tus claves, por favor<h1>";
-}
-
-
-
-?>
-             
-
-
-              <div id="contact-form">
-
-                  <!-- form -->
-				  <form name="contactForm" action="login.php" id="contactForm" method="post" >
-                 <!-- <form name="contactForm" id="contactForm" method="post" action="">-->
-      					<fieldset>
-
-                        <div class="half">
-      						   <label for="Usuario">Usuario <span class="required">*</span></label>
-      						     <div class="alert alert-danger"><input name="usuario" type="text" id="usuario" size="35" value="" /> 
-							  </div>
-							   
-
-                        </div>
-
-                        <div class="half pull-right">
-      						   <label for="Password">Contraseña <span class="required">*</span></label>
-      						   <input name="contraseña" type="password" id="contraseña" size="35" value="" />
-                        </div>
-
-                        <div>
-                          <!-- <button class="submit">Submit</button>-->
-						   <input name="Submit" value="Acceder" type="submit" />
-						   <div  id="div"></div>
-						   <div  id="div2"></div>
-                           <span id="image-loader">
-                              <img src="images/loader.gif" alt="" />
-                           </span>
-                        </div>
-
-      					</fieldset>
-      				</form> <!-- Form End -->
-
-                  <!-- contact-warning -->
-                
-
-            </section> <!-- section end -->
-
-         </div>
+    <header>
 
         
+        
+        
+        <div class="container">
 
-      </div>
+            <hr class="my-4">
+            <div class="centrar-texto">
+                <h2>Accede a tu espacio <strong class="akarayoga">Akarayoga</strong></h2>
+            </div>
 
-   </div> <!-- Content End-->
+            <div class="container">
+                <div class="card card-login mx-auto mt-5">
+                    <div class="card-header"><h3>Inicio de sesión</h3></div>
+                    <div class="card-body">
 
-  
-   <!-- footer
-   ================================================== -->
-   <footer>
+    <!-- Insertamos el formulario de inicio de sesión -->
+                        <form form action="login.php" method="post">
 
-      <div class="row">
+                            <!-- email -->
+                            <div class="form-group">
+                                <div class="form-label-group">
+                                <label for="email">Email</label>
+                                    <input type="email" id="email" name="email" class="form-control" placeholder="Correo electrónico"  autofocus="autofocus">
+                                    
+                                </div>
+                            </div>
 
-         <div class="twelve columns">
+                            <!-- contrasena   <a class="btn btn-primary btn-block" href="index.php">Iniciar sesión</a>-->
+                            <div class="form-group">
+                                <div class="form-label-group">
+                                    
+                                <label for="contrasena">Contraseña</label>
+                                    <input type="password" id="contrasena" name="contrasena" class="form-control" placeholder="Password">
+                                   
+                                </div>
+                            </div>
 
-            <ul class="footer-nav">
-					<li><a href="#">Home.</a></li>
-              	<li><a href="#">Blog.</a></li>
-              	<li><a href="#">Portfolio.</a></li>
-              	<li><a href="#">About.</a></li>
-              	<li><a href="#">Contact.</a></li>
-               <li><a href="#">BLOG.</a></li>
-			   </ul>
+                            <input class="btn btn-primary btn-block" type="submit" value="Login" class="boton-form">
+                            
 
-            <ul class="footer-social">
-               <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-               <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-               <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-               <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-               <li><a href="#"><i class="fa fa-skype"></i></a></li>
-               <li><a href="#"><i class="fa fa-rss"></i></a></li>
-            </ul>
 
-            <ul class="copyright">
-               <li><a href="acceso.html">Acceso</a></li>
-            </ul>
 
-         </div>
+                            <div style="color:red">
+                     <?php echo $mensaje; ?>
+                </div>
+                        </form>
+                        
+                        
+                            <a class="d-block small mt-3" href="registro.php">Crear una cuenta</a>
+                           
+                        </div>
+                    </div>
+                </div>
 
-         <div id="go-top" style="display: block;"><a title="Back to Top" href="#">Go To Top</a></div>
+            </div>
 
-      </div>
+    </header>
 
-   </footer> <!-- Footer End-->
+    <!-- Page Content -->
 
-   <!-- Java Script
-   ================================================== -->
-   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-   <script>window.jQuery || document.write('<script src="js/jquery-1.10.2.min.js"><\/script>')</script>
-   <script type="text/javascript" src="js/jquery-migrate-1.2.1.min.js"></script>
 
-   <script src="js/jquery.flexslider.js"></script>
-   <script src="js/doubletaptogo.js"></script>
-   <script src="js/init.js"></script>
+
+
+    <div class="container">
+
+    
+
+        <!-- /.container -->
+
+        <hr>
+        <hr>
+    </div>
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+        <div class="container">
+            <p class="m-0 text-center text-white">Copyright &copy; Universidad Europea de Madrid - Asignatura: Desarrollo web y de apps - Realizada por: Ainoha Fernandez & Sergio Benavente</p>
+        </div>
+        <!-- /.container -->
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    
 
 </body>
 
