@@ -1,0 +1,12 @@
+{
+    "folders": [
+		{
+			"path": "."
+		}
+	],
+    "settings": {
+        "open-php-html-js-in-browser.urlToOpen": "custom",
+        "open-php-html-js-in-browser.customUrlToOpen": "http://localhost/DesarrolloWebPracticaGrupal/${fileBasename}",
+        "liveServer.settings.multiRootWorkspaceName": "startbootstrap-modern-business-gh-pages"
+    }
+}

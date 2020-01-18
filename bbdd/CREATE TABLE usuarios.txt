@@ -1,0 +1,47 @@
+
+-- CREAMOS LA TABLA DE USUARIOS REGISTRADOS
+
+CREATE TABLE `usuarios` (
+  `idUsuario` int(10) NOT NULL auto_increment,
+  `nombre` varchar(60) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `apellidos` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `contrasena` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(60) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `telefono` int(11) NOT NULL,
+  `fechaRegistro` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `fechaUltimoAcceso` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `fechaNacimiento` date NOT NULL DEFAULT '0000-00-00',
+  `ipUsuario` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `mensaje` longtext COLLATE utf8mb4_unicode_ci,
+primary key (`idUsuario`)) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+
+-- CREAMOS LA TABLA DE MENSAJES DE CONTACTO
+
+CREATE TABLE `contacto` (
+  `idMensaje` int(10) NOT NULL auto_increment,
+  `nombre` varchar(60) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `apellidos` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(60) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `telefono` int(11) NOT NULL,
+  `fechaMensaje` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `mensaje` longtext COLLATE utf8mb4_unicode_ci,
+primary key (`idMensaje`)) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+-- CREAMOS LA TABLA DE CLASES
+CREATE TABLE `akarayoga`.`clases` (
+  `idClase` INT NOT NULL AUTO_INCREMENT,
+  `nombreClase` VARCHAR(45) NULL,
+  `Tipo` VARCHAR(45) NULL,
+  `duracionMinutos` INT NULL,
+  `fecha` DATE NULL,
+  `ubicacion` VARCHAR(45) NULL,
+  `aforo` VARCHAR(45) NULL,
+  PRIMARY KEY (`idClase`));
+
+-- INSERTAMOS VALORES
+INSERT INTO clases (nombreClase, Tipo, duracionMinutos, fecha, ubicacion, aforo) VALUES 
+('Yoga en el parque', 'Pilates', 60, '2020/01/01','Madrid Rio',8),
+('Skype Yoga','Yoga',45,'2020/01/01','Online - Desde tu casa',5);
