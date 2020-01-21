@@ -127,8 +127,8 @@ die();
                 <div class="list-group">
                     <a href="perfilUsuarioAdmin.php" class="btn btn-primary btn-block">Perfil Administrador</a>
                     <a href="perfilAdmin_Clases.php" class="btn btn-primary btn-block">Crear Clases</a>
-                    <a href="perfilEditarClases.php" class="btn btn-primary btn-block">Editar Clases</a>
-                    <a href="perfiladminClases.php" class="btn btn-primary btn-block activado">Clases</a>
+                    <a href="perfilAdmin_Clases.php" class="btn btn-primary btn-block activado">Editar Clases</a>
+                    <a href="perfiladminClases.php" class="btn btn-primary btn-block ">Clases</a>
                     <a href="_cerrarSesion.php" class="btn btn-primary btn-block bot-rojo">Cerrar sesión</a>
 
                 </div>
@@ -142,6 +142,7 @@ die();
     <table border="1">
 		<tr>
             
+            <td>Id Clase</td>
 			<td>Nombre de la clase</td>
 			<td>Tipo de actividad</td>
 			<td>Duración (minutos)</td>
@@ -149,7 +150,7 @@ die();
             <td>Fecha</td>
             <td>Aforo</td>	
             <td>Activa</td>
-           
+            <td>Acción</td>
             
 
 		</tr>
@@ -169,25 +170,27 @@ die();
 		<tr>
         
        
-        
+       
+            <td name="idClase"><?php echo $row['idClase'] ?></td>
             <td name="nombreClase"><?php echo $row['nombreClase'] ?></td>
 			<td name="tipo"><?php echo $row['Tipo'] ?></td>
 			<td name="duracion"><?php echo $row['duracionMinutos'] ?></td>
             <td name="ubicacion"><?php echo $row['ubicacion'] ?></td>
             <td name="fecha"><?php echo $row['fecha'] ?></td>
             <td name="aforo"><?php echo $row['aforo'] ?></td>
-            <td name="activa" value="<?php if($row['activa']=='1') echo "SI"; else echo "NO";?>"><?php if($row['activa']=='1') echo "SI"; else echo "NO";?></td>  
-            <!--  <td><a href="perfilEditarClases.php?id=<?php echo $data['idClase']; ?>">Editar</td>
-             <td><select name="activa"> 
+            <td name="activa" value="<?php if($row['activa']=='1') echo "SI"; else echo "NO";?>"><?php echo $row['activa']?></td>  
+            <td><a href="perfilEditarClase.php?id=<?php echo $row['idClase']; ?>">Editar</td>
+            <!--   <td><select name="activa"> 
            <option name="activa" value="<?php if($row['activa']=='1') echo "SI"; else echo "NO"; ?>" selected><?php if($row['activa']=='1') echo "SI"; else echo "NO"; ?></option>
             <option value="<?php if($row['activa']=='0') echo "SI"; else echo "NO"; ?>" ><?php if($row['activa']=='0') echo "SI"; else echo "NO"; ?></option>
             </select></td>    
           -->
+          
         
         <td>
       
+        </td>
         </tr>
-       
 	<?php 
 	}
 	 ?>

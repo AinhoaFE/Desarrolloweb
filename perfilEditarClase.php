@@ -127,72 +127,134 @@ die();
                 <div class="list-group">
                     <a href="perfilUsuarioAdmin.php" class="btn btn-primary btn-block">Perfil Administrador</a>
                     <a href="perfilAdmin_Clases.php" class="btn btn-primary btn-block">Crear Clases</a>
-                    <a href="perfilEditarClases.php" class="btn btn-primary btn-block">Editar Clases</a>
-                    <a href="perfiladminClases.php" class="btn btn-primary btn-block activado">Clases</a>
+                    <a href="perfilAdmin_Clases.php" class="btn btn-primary btn-block activado">Editar Clases</a>
+                    <a href="perfiladminClases.php" class="btn btn-primary btn-block ">Clases</a>
                     <a href="_cerrarSesion.php" class="btn btn-primary btn-block bot-rojo">Cerrar sesión</a>
 
                 </div>
             </div>
             <!-- Content Column -->
             <div class="col-lg-9 mb-4">
-                <h2>Mis Clases</h2>
+                <h2>Modificando Clase</h2>
 
  <!-- Vamos a crear una tabla que se autocomplete con las clases de yoga disponibles -->
 
-    <table border="1">
-		<tr>
-            
-			<td>Nombre de la clase</td>
-			<td>Tipo de actividad</td>
-			<td>Duración (minutos)</td>
-			<td>Ubicación</td>
-            <td>Fecha</td>
-            <td>Aforo</td>	
-            <td>Activa</td>
-           
-            
-
-		</tr>
-
-
-        <?php 
-        
-		$sql="SELECT * from clases";
+ <?php 
+        $idClase=$_REQUEST['id'];
+		$sql="SELECT * from clases WHERE idClase=$idClase";
         $result=mysqli_query($conexion,$sql);
         
               
-		while($row=mysqli_fetch_array($result)){
-          
-           
-        ?>
+		while($data=mysqli_fetch_array($result)){
+          $nombreClase=$data['nombreClase'];
+          $tipo=$data['Tipo'];
+          $minutos=$data['duracionMinutos'];
+          $fecha=$data['fecha'];
+          $ubicacion=$data['ubicacion']; 
+          $aforo=$data['aforo']; 
+          $activa=$data['activa']; 
 
-		<tr>
-        
+?>
+
+
+        <form id="ModificacionClase" action="_actualizacion.php" methot="POST" onsubmit="return validarFormularioRegistro()">
+                    
+                   
+        <div class="control-group form-group">
+                        <div class="controls">
+                            
+                                                  
+                        <input type="hidden" id="idClase"  name="idClase" class="form-control" value="<?php echo $nombreClase;?>">
+            
+                        </div>
+                    </div>
+                    
+                     <div class="control-group form-group">
+                        <div class="controls">
+                            
+                                                  
+                        <label for="nombreClase">Nombre Clase </label>
+                        <input type="text" id="nombreClase"  name="nombreClase" class="form-control" value="<?php echo $nombreClase;?>">
+            
+                        </div>
+                    </div>
+                    
+                    <div class="control-group form-group">
+                        <div class="controls">
+
+                        <label for="tipo">Tipo Clase</label>
+                        <input type="text" id="tipo"  name="tipo" class="form-control" value="<?php echo $tipo;?>" >
+
+                        </div>
+                     </div>
+                    
+                        <div class="control-group form-group">
+                        <div class="controls">
+                            
+                        <label for="duracionMinutos">duracionMinutos</label>
+                        <input type="number" id="duracionMinutos" name="duracionMinutos" class="form-control" value="<?php echo $minutos;?>">
+
+                        </div>
+                    </div>
+
+
+                    <div class="control-group form-group">
+                        <div class="controls">
+                            
+                      
+                        <label for="fecha">Fecha</label>
+                        <input type="date" id="fecha" name="fecha" class="form-control" value="<?php echo $fecha;?>">
+    
+
+                        </div>
+                    </div>
+                        
+                    
+                    <div class="control-group form-group">
+                        <div class="controls">
+
+                        <label for="ubicacion">Ubicación</label>
+                        <input type="text" id="ubicacion" name="ubicacion" class="form-control" value="<?php echo $ubicacion;?>">
+       
+                        </div>
+                    </div>
+                        
+
+                    <div class="control-group form-group">
+                        <div class="controls">  
+
+                        <label for="aforo">Aforo</label>
+                        <input type="number" id="aforo" name="aforo" class="form-control" value="<?php echo $aforo;?>">
+                        
+
+                        </div>
+</br>
+                    <div class="control-group form-group">
+                        <div class="controls">  
+
+                        <label for="activa">Activa</label>
+                        <select name="activa" value="<?php if($activa=='1') echo "SI"; else echo "NO"; ?>">
+                        <option value="<?php if($activa=='1') echo "SI"; else echo "NO"; ?> selected"><?php if($activa=='1') echo "SI"; else echo "NO"; ?></option>
+                        <option value="<?php if($activa=='1') echo "NO"; else echo "SI"; ?>"><?php if($activa=='1') echo "NO"; else echo "SI"; ?></option>
+                        
+                     <!--   <option value="1">SI</option>
+                        <option value="0">NO</option> -->
+                      </select>
+                        </div>
+                    </div>
+
+
+                    
+                    <div id="success"></div>
+                    <!-- For success/fail messages -->
+                    <button type="submit" class="btn btn-primary" id="sendMessageButton">Modificar</button>
+
+                   
+                    <hr>
+                </form>
        
         
-            <td name="nombreClase"><?php echo $row['nombreClase'] ?></td>
-			<td name="tipo"><?php echo $row['Tipo'] ?></td>
-			<td name="duracion"><?php echo $row['duracionMinutos'] ?></td>
-            <td name="ubicacion"><?php echo $row['ubicacion'] ?></td>
-            <td name="fecha"><?php echo $row['fecha'] ?></td>
-            <td name="aforo"><?php echo $row['aforo'] ?></td>
-            <td name="activa" value="<?php if($row['activa']=='1') echo "SI"; else echo "NO";?>"><?php if($row['activa']=='1') echo "SI"; else echo "NO";?></td>  
-            <!--  <td><a href="perfilEditarClases.php?id=<?php echo $data['idClase']; ?>">Editar</td>
-             <td><select name="activa"> 
-           <option name="activa" value="<?php if($row['activa']=='1') echo "SI"; else echo "NO"; ?>" selected><?php if($row['activa']=='1') echo "SI"; else echo "NO"; ?></option>
-            <option value="<?php if($row['activa']=='0') echo "SI"; else echo "NO"; ?>" ><?php if($row['activa']=='0') echo "SI"; else echo "NO"; ?></option>
-            </select></td>    
-          -->
-        
-        <td>
-      
-        </tr>
-       
-	<?php 
-	}
-	 ?>
-	</table>
-    </br>
+        <?php }?>
 
 </div>
 

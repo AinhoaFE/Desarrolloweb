@@ -140,16 +140,7 @@ die();
  <!-- Vamos a crear una tabla con las clases de yoga disponibles -->
 
     <table border="1">
-		<tr>
-			
-			<td>Nombre de la clase</td>
-			<td>Tipo de actividad</td>
-			<td>Duración (minutos)</td>
-			<td>Ubicación</td>
-            <td>Fecha</td>
-            <td>Aforo</td>	
-            <td>Activa</td> 
-		</tr>
+	
 
         <form id="RegistroClase" action="_altaClases.php" methot="POST" onsubmit="return validarFormularioRegistro()">
                     
