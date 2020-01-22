@@ -128,43 +128,41 @@ die();
                     <a href="perfilUsuarioAdmin.php" class="btn btn-primary btn-block">Perfil Administrador</a>
                     <a href="perfilAdmin_Clases.php" class="btn btn-primary btn-block">Crear Clases</a>
                     <a href="perfilAdmin_Clases.php" class="btn btn-primary btn-block activado">Editar Clases</a>
-                    <a href="perfiladminClases.php" class="btn btn-primary btn-block ">Clases</a>
+                    <a href="perfilAdminClases.php" class="btn btn-primary btn-block ">Clases</a>
                     <a href="_cerrarSesion.php" class="btn btn-primary btn-block bot-rojo">Cerrar sesión</a>
 
                 </div>
             </div>
             <!-- Content Column -->
             <div class="col-lg-9 mb-4">
-                <h2>Modificando Clase</h2>
+                <h2>Modificando Datos Personales</h2>
 
  <!-- Vamos a crear una tabla que se autocomplete con las clases de yoga disponibles -->
 
  <?php 
-        $idClase=$_REQUEST['id'];
-		$sql="SELECT * from clases WHERE idClase=$idClase";
+        $idUsuario=$_REQUEST['id'];
+		$sql="SELECT * from usuarios WHERE idUsuario=$idUsuario";
         $result=mysqli_query($conexion,$sql);
         
               
 		while($data=mysqli_fetch_array($result)){
-          $nombreClase=$data['nombreClase'];
-          $tipo=$data['Tipo'];
-          $minutos=$data['duracionMinutos'];
-          $fecha=$data['fecha'];
-          $ubicacion=$data['ubicacion']; 
-          $aforo=$data['aforo']; 
-          $activa=$data['activa']; 
-
+          $nombre=$data['nombre'];
+          $apellidos=$data['apellidos'];
+          $email=$data['email'];
+          $telefono=$data['telefono'];
+          $fechanac=$data['fechaNacimiento']; 
+         
 ?>
 
 
-        <form id="ModificacionClase" action="_actualizacion.php" methot="POST" onsubmit="return validarFormularioRegistro()">
+        <form id="ModificacionUsuario" action="_modificacionusuarios.php" methot="GET" onsubmit="return validarFormularioRegistro()">
                     
                    
         <div class="control-group form-group">
                         <div class="controls">
                             
                                                   
-                        <input type="hidden" id="idClase"  name="idClase" class="form-control" value="<?php echo $idClase;?>">
+                        <input type="hidden" id="idUsuario"  name="idUsuario" class="form-control" value="<?php echo $idUsuario;?>">
             
                         </div>
                     </div>
@@ -173,8 +171,8 @@ die();
                         <div class="controls">
                             
                                                   
-                        <label for="nombreClase">Nombre Clase </label>
-                        <input type="text" id="nombreClase"  name="nombreClase" class="form-control" value="<?php echo $nombreClase;?>">
+                        <label for="nombre">Nombre </label>
+                        <input type="text" id="nombre"  name="nombre" class="form-control" value="<?php echo $nombre;?>">
             
                         </div>
                     </div>
@@ -182,8 +180,8 @@ die();
                     <div class="control-group form-group">
                         <div class="controls">
 
-                        <label for="tipo">Tipo Clase</label>
-                        <input type="text" id="tipo"  name="tipo" class="form-control" value="<?php echo $tipo;?>" >
+                        <label for="apellidos">Apellidos</label>
+                        <input type="text" id="apellidos"  name="apellidos" class="form-control" value="<?php echo $apellidos;?>" >
 
                         </div>
                      </div>
@@ -191,64 +189,33 @@ die();
                         <div class="control-group form-group">
                         <div class="controls">
                             
-                        <label for="duracionMinutos">duracionMinutos</label>
-                        <input type="number" id="duracionMinutos" name="duracionMinutos" class="form-control" value="<?php echo $minutos;?>">
+                        <label for="email">Email</label>
+                        <input type="text" id="email" name="email" class="form-control" value="<?php echo $email;?>">
 
                         </div>
                     </div>
 
+                    <div class="control-group form-group">
+                        <div class="controls">
+
+                        <label for="telefono">Teléfono</label>
+                        <input type="number" id="telefono" name="telefono" class="form-control" value="<?php echo $telefono;?>">
+       
+                        </div>
+                    </div>
 
                     <div class="control-group form-group">
                         <div class="controls">
                             
                       
-                        <label for="fecha">Fecha</label>
-                        <input type="date" id="fecha" name="fecha" class="form-control" value="<?php echo $fecha;?>">
+                        <label for="fechanac">Fecha Nacimiento</label>
+                        <input type="date" id="fechanac" name="fechanac" class="form-control" value="<?php echo $fechanac;?>">
     
 
                         </div>
                     </div>
                         
-                    
-                    <div class="control-group form-group">
-                        <div class="controls">
-
-                        <label for="ubicacion">Ubicación</label>
-                        <input type="text" id="ubicacion" name="ubicacion" class="form-control" value="<?php echo $ubicacion;?>">
-       
-                        </div>
-                    </div>
-                        
-
-                    <div class="control-group form-group">
-                        <div class="controls">  
-
-                        <label for="aforo">Aforo</label>
-                        <input type="number" id="aforo" name="aforo" class="form-control" value="<?php echo $aforo;?>">
-                        
-
-                        </div>
-</br>
-                    <div class="control-group form-group">
-                        <div class="controls">  
-
-                        <label for="activa">Activa</label>
-                        <select name="activa" >
-                       <option value="1">SI</option>
-                        <option value="0">NO</option>
-                       
-         
-                     <!--
-                          <option value="<?php if($activa=='1') echo "SI"; else echo "NO"; ?>" selected><?php if($activa=='1') echo "SI"; else echo "NO"; ?></option>
-                        <option value="<?php if($activa=='0') echo "SI"; else echo "NO";; ?>"><?php if($activa=='0') echo "SI"; else echo "NO"; ?></option>
-       <option value="1">SI</option>
-                        <option value="0">NO</option> -->
-                      </select>
-                        </div>
-                    </div>
-
-
-                    
+                                      
                     <div id="success"></div>
                     <!-- For success/fail messages -->
                     <button type="submit" class="btn btn-primary" id="sendMessageButton">Modificar</button>

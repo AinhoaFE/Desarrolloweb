@@ -128,6 +128,7 @@ die();
                 <div class="list-group">
                     <a href="perfilUsuarioAdmin.php" class="btn btn-primary btn-block">Perfil Administrador</a>
                     <a href="perfilAdmin_Clases.php" class="btn btn-primary btn-block activado">Crear Clases</a>
+                    <a href="perfilEditarClases.php" class="btn btn-primary btn-block">Editar Clases</a>
                     <a href="perfilAdminClases.php" class="btn btn-primary btn-block">Clases</a>
                     <a href="_cerrarSesion.php" class="btn btn-primary btn-block bot-rojo">Cerrar sesión</a>
 

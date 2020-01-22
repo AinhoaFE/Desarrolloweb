@@ -178,7 +178,7 @@ die();
             <td name="ubicacion"><?php echo $row['ubicacion'] ?></td>
             <td name="fecha"><?php echo $row['fecha'] ?></td>
             <td name="aforo"><?php echo $row['aforo'] ?></td>
-            <td name="activa" value="<?php if($row['activa']=='1') echo "SI"; else echo "NO";?>"><?php echo $row['activa']?></td>  
+            <td name="activa" value="<?php if($row['activa']=='1') echo "SI"; else echo "NO";?>"><?php if($row['activa']=='1') echo "SI"; else echo "NO";?></td>  
             <td><a href="perfilEditarClase.php?id=<?php echo $row['idClase']; ?>">Editar</td>
             <!--   <td><select name="activa"> 
            <option name="activa" value="<?php if($row['activa']=='1') echo "SI"; else echo "NO"; ?>" selected><?php if($row['activa']=='1') echo "SI"; else echo "NO"; ?></option>

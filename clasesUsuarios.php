@@ -80,24 +80,24 @@ die();
                 <ul class="navbar-nav ml-auto">
 
                     <li class="nav-item">
-                        <a class="nav-link letra" href="indexadmin.php">Inicio</a>
+                        <a class="nav-link letra" href="index.php">Inicio</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link letra" href="aboutadmin.php">Akara</a>
+                        <a class="nav-link letra" href="about.php">Akara</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link letra" href="servicesadmin.php">Clases</a>
+                        <a class="nav-link letra" href="services.php">Clases</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link letra" href="contactadmin.php">Contacto</a>
+                        <a class="nav-link letra" href="contact.php">Contacto</a>
                     </li>
 
                     <?php if ($autorizado == true) { 
                             
                             //introducimos html despues de estas llaves?>
-                    <a class="nav-link letra active" href="perfilUsuarioAdmin.php">
+                    <a class="nav-link letra active" href="perfilUsuario.php">
                         <?php echo $nombreUsuario?>
                     </a>
 
@@ -125,7 +125,7 @@ die();
             <!-- Sidebar Column -->
             <div class="col-lg-3 mb-4">
                 <div class="list-group">
-                    <a href="perfilUsuarioAdmin.php" class="btn btn-primary btn-block">Perfil Administrador</a>
+                    <a href="perfilUsuario.php" class="btn btn-primary btn-block">Perfil Administrador</a>
                     <a href="perfilAdmin_Clases.php" class="btn btn-primary btn-block">Crear Clases</a>
                     <a href="perfilAdmin_Clases.php" class="btn btn-primary btn-block activado">Editar Clases</a>
                     <a href="perfiladminClases.php" class="btn btn-primary btn-block ">Clases</a>

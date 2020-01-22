@@ -120,6 +120,8 @@ die();
                 <div class="list-group">
                     <a href="perfilUsuario.php" class="btn btn-primary btn-block activado">Mi perfil</a>
                     <a href="perfilUsuario_Clases.php" class="btn btn-primary btn-block ">Mis Clases</a>
+                    <a href="asistirClase.php" class="btn btn-primary btn-block ">Elige tus clases</a>
+                    <a href="contactar.php" class="btn btn-primary btn-block ">Envia tus dudas y sugerencias</a>
                     <a href="_cerrarSesion.php" class="btn btn-primary btn-block bot-rojo">Cerrar sesión</a>
 
                 </div>
@@ -127,7 +129,8 @@ die();
             <!-- Content Column -->
             <div class="col-lg-9 mb-4">
                 <h2>Mi perfil</h2>
-
+                <div style="visibility: hidden"><?php echo $idUsuario?></div> 
+               
                     <p class="letra">A continuación el detalle de tus datos </p>
                     <p class="letra">Nombre: <span class="span-personalizado"><?php echo $nombreUsuario?></span></p>
                     <p class="letra">Apellidos: <span class="span-personalizado"> <?php echo $apellidos?> </span></p>
@@ -138,11 +141,12 @@ die();
                     <p class="letra">Fecha última conexión:<span class="span-personalizado">  <?php echo $ultimoAcceso ?> </span></p>
                     <p class="letra">IP: <span class="span-personalizado"> <?php echo $ipUsuario?> </span></p>
                     </br>
-                    <input type="button" name="Modificar" value="Modificar Datos">    
+                    <a href="modificardatos.php?id=<?php echo $idUsuario?>" class="btn btn-success" value="Modificar mis datos">Modificar mis datos</a>
+   
          </div>
         </div>
         <!-- /.row -->
-
+</br>
     </div>
     <!-- /.container -->
 

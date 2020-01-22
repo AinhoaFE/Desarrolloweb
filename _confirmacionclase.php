@@ -1,37 +1,11 @@
-<!-- Introducimos esta funcion PHP para que si el usuario entra en 
-la web sin loguearse, se le redireccione directamente a una pagina de
-acceso restringido -->
-
 <?php
 //Para que no muestren generen errores
 error_reporting(E_ALL ^ E_NOTICE);
 session_start();
-if ($_SESSION['autorizado'] == false) { 
-echo '<meta http-equiv="refresh" content="0; url=_accesoRestringido.php">';
-die();
 
-} else{
     $autorizado = $_SESSION['autorizado'];
-    $idUsuario = $_SESSION['idUsuario'];
     $nombreUsuario = $_SESSION['nombre'];
-    $apellidos = $_SESSION['apellidos'];
-    $email = $_SESSION['email'];
-    $telefono = $_SESSION['telefono'];
-    $ultimoAcceso = $_SESSION['fechaUltimoAcceso'];
-    $registro = $_SESSION['fechaRegistro'];
-    $nacimiento =  $_SESSION['fechaNacimiento'];
-    $ipUsuario =$_SESSION['ipUsuario'];
-}
-
-
-	$conexion=mysqli_connect('localhost','root','','Akarayoga');
-
-
 ?>
-
-
-
-
 
 <!DOCTYPE html>
 <html lang="es">
@@ -94,92 +68,43 @@ die();
                     <?php if ($autorizado == true) { 
                             
                             //introducimos html despues de estas llaves?>
-                    <a class="nav-link letra active" href="perfilUsuario.php">
-                        <?php echo $nombreUsuario?>
-                    </a>
+                        <a class="nav-link letra" href="perfilUsuario.php"><?php echo $nombreUsuario?></a>
 
-                    <?php } else { ?>
+                        <?php } else { ?>
 
-                    <a class="nav-link letra active" href="login.php">Login</a>
+                        <a class="nav-link letra active" href="login.php">Login</a>
 
-                    <?php } ?>
-
+                        <?php } ?>
+               
                 </ul>
             </div>
         </div>
     </nav>
 
-
+    <!-- Contenedor en el que se le confirma que se ha apuntado a la clase -->
     <!-- Page Content -->
-    <div class="container">
 
-        <!-- Page Heading/Breadcrumbs -->
-        <h1 class="mt-4 mb-3"> <small>¡Hola </small><?php echo $nombreUsuario ." ". $apellidos?>! </h1>
-
-
-        <!-- Content Row -->
-        <div class="row">
-            <!-- Sidebar Column -->
-            <div class="col-lg-3 mb-4">
-                <div class="list-group">
-                     <a href="perfilUsuario.php" class="btn btn-primary btn-block ">Mi perfil</a>
-                    <a href="perfilUsuario_Clases.php" class="btn btn-primary btn-block activado ">Mis Clases</a>
-                    <a href="asistirClase.php" class="btn btn-primary btn-block ">Elige tus clases</a>
-                    <a href="contactar.php" class="btn btn-primary btn-block ">Envia tus dudas y sugerencias</a>
-                    <a href="_cerrarSesion.php" class="btn btn-primary btn-block bot-rojo">Cerrar sesión</a>
-
+    <div class="container  centrar-texto">
+        
+        <h1 class="mt-4 mb-3"><small>¡ Muchas gracias !</small></h1>
+        <h1 class="mt-4 mb-3"><small>¡ Nos vemos en clase !</small></h1>
+        <!-- Image Header -->
+        <img class="img-fluid rounded mb-4" src="./fotos/gracias.png" alt="">
+            <div class="card h-100 ">
+                <div class="card-body">
+                    <h4 class="card-title letra">Confirmación de asistencia a clase</h4>
+                    <p class="card-text"> <?php echo "Muchas gracias " .$nombreUsuario .". Le confirmamos que la actualización de la clase se ha realizado correctamente." ; echo '<meta http-equiv="refresh" content="10; url=index.php">'; ?></p>
                 </div>
             </div>
-            <!-- Content Column -->
-            <div class="col-lg-9 mb-4">
-                <h2>Mis Clases</h2>
-
- <!-- Vamos a crear una tabla que se autocomplete con las clases de yoga disponibles -->
-
-    <table border="1">
-		<tr>
-			
-			<td>Nombre de la clase</td>
-			<td>Tipo de actividad</td>
-			<td>Duración (minutos)</td>
-			<td>Ubicación</td>
-            <td>Fecha</td>
-            <td>Aforo</td>	
-		</tr>
-
-
-        <?php 
-        
-		$sql="SELECT * from clases";
-		$result=mysqli_query($conexion,$sql);
-
-		while($mostrar=mysqli_fetch_array($result)){
-		 ?>
-
-		<tr>
-			
-			<td><?php echo $mostrar['nombreClase'] ?></td>
-			<td><?php echo $mostrar['Tipo'] ?></td>
-			<td><?php echo $mostrar['duracionMinutos'] ?></td>
-            <td><?php echo $mostrar['ubicacion'] ?></td>
-            <td><?php echo $mostrar['fecha'] ?></td>
-          
-            <td><?php echo $mostrar['aforo'] ?></td>
-		</tr>
-	<?php 
-	}
-	 ?>
-	</table>
-
-                 
-         </div>
-        </div>
-        <!-- /.row -->
-
+    
+    
+    
     </div>
-    <!-- /.container -->
+               
 
-    <footer class="py-5 bg-dark">
+
+  <!-- Footer -->
+  <footer class="py-5 bg-dark">
         <div class="container">
             <p class="m-0 text-center text-white">Copyright &copy; Universidad Europea de Madrid - Asignatura: Desarrollo web y de apps - Realizada por: Ainhoa Fernandez & Sergio Benavente</p>
         </div>
@@ -187,11 +112,15 @@ die();
     </footer>
 
 
-
     <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
+    <script src="BenaventesGroup.js"></script>
+
+
 </body>
 
+
 </html>
+

@@ -120,6 +120,7 @@ die();
                 <div class="list-group">
                     <a href="perfilUsuarioAdmin.php" class="btn btn-primary btn-block activado">Perfil Administrador</a>
                     <a href="perfilAdmin_Clases.php" class="btn btn-primary btn-block ">Crear Clases</a>
+                    <a href="perfilEditarClases.php" class="btn btn-primary btn-block ">Editar Clases</a>
                      <a href="perfilAdminClases.php" class="btn btn-primary btn-block ">Clases</a>
                     <a href="_cerrarSesion.php" class="btn btn-primary btn-block bot-rojo">Cerrar sesión</a>
 
@@ -128,8 +129,10 @@ die();
             <!-- Content Column -->
             <div class="col-lg-9 mb-4">
                 <h2>Administrador</h2>
-
+                
+                <div style="visibility: hidden"><?php echo $idUsuario?></div> 
                     <p class="letra">A continuación el detalle de tus datos </p>
+                    
                     <p class="letra">Nombre: <span class="span-personalizado"><?php echo $nombreUsuario?></span></p>
                     <p class="letra">Apellidos: <span class="span-personalizado"> <?php echo $apellidos?> </span></p>
                     <p class="letra">Email: <span class="span-personalizado"> <?php echo $email?></span></p>
@@ -138,12 +141,14 @@ die();
                     <p class="letra">Fecha de registro: <span class="span-personalizado"> <?php echo $registro ?></span> </p>
                     <p class="letra">Fecha última conexión:<span class="span-personalizado">  <?php echo $ultimoAcceso ?> </span></p>
                     <p class="letra">IP: <span class="span-personalizado"> <?php echo $ipUsuario?> </span></p>
-                    </br>
-    <input type="button" name="Modificar" value="Modificar Datos">    
+                    
+    <a href="modificardatos.php?id=<?php echo $idUsuario?>" class="btn btn-success" value="Modificar mis datos">Modificar mis datos</a>
+      
+      </br>
          </div>
         </div>
         <!-- /.row -->
-
+        </br>
     </div>
     <!-- /.container -->
 

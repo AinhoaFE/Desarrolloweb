@@ -7,8 +7,9 @@ $tipo= $_GET['tipo'];
 $duracionMinutos = $_GET['duracionMinutos'];
 $fecha =  $_GET['fecha'];
 $ubicacion= $_GET['ubicacion'];
-$aforo = $_GET['aforo'];
+$aforo = $_GET['aforo'] ;
 $activa =$_GET['activa'];
+$valor=1;
 
     
 //Incluimos el fichero donde se encuentra nuestra función de la conexión a la base de datos
@@ -28,11 +29,11 @@ $resultados=$conn->query($sql);
 */
 //Creamos la trama para actualizar datos en la base de datos
 //$sSQL="Update Clientes Set telefono='$telefono' Where nombre='$nombre'";
-    $sql = ("UPDATE clases SET nombreClase='".$nombreClase."', Tipo='".$tipo."', duracionMinutos='".$duracionMinutos."', fecha='".$fecha."', ubicacion='".$ubicacion."', aforo='".$aforo."', activa='".$activa."' WHERE idClase='".$idClase."'");
+    $sql = ("UPDATE clases SET nombreClase='".$nombreClase."', Tipo='".$tipo."', duracionMinutos='".$duracionMinutos."', fecha='".$fecha."', ubicacion='".$ubicacion."', aforo='".($aforo - $valor)."' WHERE idClase='".$idClase."'");
     
 //Utilizamos un if para ver si se produce algun error, si no, mostramos un mensaje
     if(! $conn->query($sql)){
         mostrarError("Se ha producido un error al actualizar las clases. Por favor, inténtelo de nuevo.", "perfilUsuarioAdmin.php");
     } else {
-        header('Location: _confirmacionactualizacion.php');
+        header('Location: _confirmacionclase.php');
     }

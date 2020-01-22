@@ -40,8 +40,11 @@ die();
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="description" content="Clases Akarayoga">
+	<meta name="author" content="Web Sergio y Ainhoa">
+	<meta name="keywords" content="akarayoga, conocenos, yoga, clases, relax, work, trabajo, meditación, blog">
+	<meta name="distribution" content="global">
+	<meta name="geo.region" content="ES-M">
 
     <title>Akarayoga</title>
 
@@ -69,7 +72,7 @@ die();
     <!-- Navigation -->
     <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="index.php"> <span><img src="fotos/icono.png"width="35" height="30"></span> Akarayoga</a>
+            <a class="navbar-brand" href="indexadmin.php"> <span><img src="fotos/icono.png"width="35" height="30"></span> Akarayoga</a>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -122,9 +125,9 @@ die();
             <!-- Sidebar Column -->
             <div class="col-lg-3 mb-4">
                 <div class="list-group">
-                     <a href="perfilUsuario.php" class="btn btn-primary btn-block ">Mi perfil</a>
-                    <a href="perfilUsuario_Clases.php" class="btn btn-primary btn-block activado ">Mis Clases</a>
-                    <a href="asistirClase.php" class="btn btn-primary btn-block ">Elige tus clases</a>
+                <a href="perfilUsuario.php" class="btn btn-primary btn-block">Mi perfil</a>
+                    <a href="perfilUsuario_Clases.php" class="btn btn-primary btn-block ">Mis Clases</a>
+                    <a href="asistirClase.php" class="btn btn-primary btn-block activado ">Elige tus clases</a>
                     <a href="contactar.php" class="btn btn-primary btn-block ">Envia tus dudas y sugerencias</a>
                     <a href="_cerrarSesion.php" class="btn btn-primary btn-block bot-rojo">Cerrar sesión</a>
 
@@ -132,47 +135,65 @@ die();
             </div>
             <!-- Content Column -->
             <div class="col-lg-9 mb-4">
-                <h2>Mis Clases</h2>
+                <h2>Apuntate a las clases que más te interesen</h2>
 
  <!-- Vamos a crear una tabla que se autocomplete con las clases de yoga disponibles -->
 
     <table border="1">
 		<tr>
-			
+            
+            <td>Id Clase</td>
 			<td>Nombre de la clase</td>
 			<td>Tipo de actividad</td>
 			<td>Duración (minutos)</td>
 			<td>Ubicación</td>
             <td>Fecha</td>
             <td>Aforo</td>	
+            <td>Acción</td>
+            
+
 		</tr>
 
 
         <?php 
         
-		$sql="SELECT * from clases";
-		$result=mysqli_query($conexion,$sql);
-
-		while($mostrar=mysqli_fetch_array($result)){
-		 ?>
+		$sql="SELECT * from clases WHERE activa='1'";
+        $result=mysqli_query($conexion,$sql);
+        
+              
+		while($row=mysqli_fetch_array($result)){
+          
+           
+        ?>
 
 		<tr>
-			
-			<td><?php echo $mostrar['nombreClase'] ?></td>
-			<td><?php echo $mostrar['Tipo'] ?></td>
-			<td><?php echo $mostrar['duracionMinutos'] ?></td>
-            <td><?php echo $mostrar['ubicacion'] ?></td>
-            <td><?php echo $mostrar['fecha'] ?></td>
+        
+       
+       
+            <td name="idClase"><?php echo $row['idClase'] ?></td>
+            <td name="nombreClase"><?php echo $row['nombreClase'] ?></td>
+			<td name="tipo"><?php echo $row['Tipo'] ?></td>
+			<td name="duracion"><?php echo $row['duracionMinutos'] ?></td>
+            <td name="ubicacion"><?php echo $row['ubicacion'] ?></td>
+            <td name="fecha"><?php echo $row['fecha'] ?></td>
+            <td name="aforo"><?php echo $row['aforo'] ?></td>
+               <td><a href="apuntar.php?id=<?php echo $row['idClase']; ?>">Apuntarse a esta clase</td>
           
-            <td><?php echo $mostrar['aforo'] ?></td>
-		</tr>
+         
+        
+        <td>
+      
+        </td>
+        </tr>
 	<?php 
 	}
 	 ?>
 	</table>
+    </br>
 
-                 
-         </div>
+</div>
+
+
         </div>
         <!-- /.row -->
 
